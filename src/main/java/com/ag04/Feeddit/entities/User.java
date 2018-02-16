@@ -1,5 +1,6 @@
 package com.ag04.Feeddit.entities;
 
+import com.ag04.Feeddit.services.PasswordCoder;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 
 import javax.persistence.Column;
@@ -18,24 +19,20 @@ public class User {
     @Column(name = "password")
     private String password;
 
+    public User(){
+
+    }
+
     public User(String username, String password) {
         this.username = username;
-        this.password = password;
+        this.password = PasswordCoder.encode(password);
     }
 
     public String getUsername() {
         return username;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
     public String getPassword() {
         return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 }

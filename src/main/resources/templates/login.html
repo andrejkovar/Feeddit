@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org/">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8"/>
     <title>Login</title>
 
     <!-- Latest compiled and minified CSS -->
@@ -33,12 +33,24 @@
         .closebtn:hover {
             color: black;
         }
+
+        .logo {
+            color: #B4886B;
+            font-weight: bold;
+            display: block;
+            width: 150px;
+            float: left;
+        }
     </style>
 </head>
 <body>
 
 <nav class="navbar navbar-default">
     <div class="container-fluid">
+        <!-- Brand and toggle  grouped for better mobile display -->
+        <div class="navbar-header">
+            <label class="navbar-brand" href="">Feeddit</label>
+        </div>
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav navbar-right">
                 <li><p class="navbar-text">Login</p></li>
@@ -47,26 +59,27 @@
     </div>
 </nav>
 
+
 <div class="container">
 
     <div class="col-md-6 col-md-offset-3">
 
         <div class="alert">
             <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
-            <span th:text="${message?}">Arrea for messages, INFO/WARN/ERROR</span>
+            <span th:text="${message}">Area for messages, INFO/WARN/ERROR</span>
         </div>
 
         <form class="form-horizontal" method="POST">
             <div class="form-group">
-                <label for="inputUsername" class="col-sm-2 control-label">Username</label>
+                <label class="col-sm-2 control-label">Username</label>
                 <div class="col-sm-10">
-                    <input type="password" name="password" class="form-control" id="inputUsername" placeholder="Username"/>
+                    <input name="username" class="form-control"  placeholder="Username"/>
                 </div>
             </div>
             <div class="form-group">
-                <label for="inputPassword" class="col-sm-2 control-label">Password</label>
+                <label class="col-sm-2 control-label">Password</label>
                 <div class="col-sm-10">
-                    <input type="password" name="password" class="form-control" id="inputPassword" placeholder="Password"/>
+                    <input type="password" name="password" class="form-control" placeholder="Password"/>
                 </div>
             </div>
             <div class="form-group">

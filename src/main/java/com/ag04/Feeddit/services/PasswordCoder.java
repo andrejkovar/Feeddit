@@ -5,7 +5,7 @@ import java.util.Base64;
 public class PasswordCoder {
 
     public static String encode(String password){
-        return new String(Base64.getEncoder().encode(password.getBytes()));
+        return Base64.getEncoder().encodeToString(password.getBytes());
     }
 
     public static String decode(String encodedPassword){
