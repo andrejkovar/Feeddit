@@ -18,7 +18,7 @@ public class Article {
     private int votes;
 
     @Column(name = "headline")
-    private String headLine;
+    private String headline;
 
     @Column(name = "author")
     private String author;
@@ -30,9 +30,9 @@ public class Article {
 
     }
 
-    public Article(User user, String headLine, String author, String link) {
+    public Article(User user, String headline, String author, String link) {
         this.user = user;
-        this.headLine = headLine;
+        this.headline = headline;
         this.author = author;
         this.link = link;
 
@@ -59,12 +59,12 @@ public class Article {
         this.votes = votes;
     }
 
-    public String getHeadLine() {
-        return headLine;
+    public String getHeadline() {
+        return headline;
     }
 
-    public void setHeadLine(String headLine) {
-        this.headLine = headLine;
+    public void setHeadline(String headLine) {
+        this.headline = headLine;
     }
 
     public String getAuthor() {

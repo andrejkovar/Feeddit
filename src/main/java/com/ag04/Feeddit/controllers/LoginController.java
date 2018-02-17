@@ -9,9 +9,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.util.List;
-import java.util.Set;
-
 @RestController
 @RequestMapping(value = "/login")
 public class LoginController {
@@ -62,16 +59,10 @@ public class LoginController {
         }
 
         model.setStatus(HttpStatus.ACCEPTED);
-        //model.setViewName("redirect:../articles");
-        model.addObject("message", "Success!");
-        model.setViewName("login");
+        model.setViewName("redirect:/articles");
+        model.addObject("username", username);
+        model.addObject("token", "1234");
 
         return model;
     }
-
-    @RequestMapping(value = "/articles", method = RequestMethod.GET)
-    public List<Article> getUserArticles(){
-        return loginService.getUserArticles("userOne");
-    }
-
 }

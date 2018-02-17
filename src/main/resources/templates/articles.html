@@ -6,13 +6,41 @@
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"/>
 
+    <style>
+        /* The alert message box */
+        .alert {
+            padding: 20px;
+            background-color: #666666; /* Red */
+            color: white;
+            margin-bottom: 15px;
+        }
+
+        /* The close button */
+        .closebtn {
+            margin-left: 15px;
+            color: white;
+            font-weight: bold;
+            float: right;
+            font-size: 22px;
+            line-height: 20px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        /* When moving the mouse over the close button */
+        .closebtn:hover {
+            color: black;
+        }
+    </style>
+
 </head>
 <body>
 
 <nav class="navbar navbar-default">
     <div class="container-fluid">
         <div class="navbar-header">
-            <a class="navbar-brand" href="#">Welcome, username</a>
+
+            <a class="navbar-brand" th:text="'Welcome, '+ ${username} +' !'" th:href="@{|/articles/${username}|}"></a>
         </div>
 
         <div class="collapse navbar-collapse">
@@ -22,6 +50,71 @@
         </div>
     </div>
 </nav>
+<div class="message container">
+    <div class="col-md-6 col-md-offset-3">
+        <div class="alert">
+            <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+            <span th:text="${message}">Area for messages, INFO/WARN/ERROR</span>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title pull-left">
+                Articles
+            </h3>
+
+            <a href="/articles/new" class="btn btn-success btn-sm pull-right"><span class="glyphicon glyphicon-plus"></span> Add new article</a>
+            <div class="clearfix"></div>
+        </div>
+
+        <table class="table">
+
+            <colgroup>
+                <col span="1" style="width: 20%;"/>
+                <col span="1" style="width: 20%;"/>
+                <col span="1" style="width: 20%;"/>
+                <col span="1" style="width: 20%;"/>
+                <col span="1" style="width: 10%;"/>
+                <col span="1" style="width: 10%;"/>
+            </colgroup>
+
+            <thead>
+            <tr>
+                <th>Headline</th>
+                <th>Author</th>
+                <th>link</th>
+                <th>Votes</th>
+                <th></th>
+                <th></th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <tr th:each="article : ${articles}">
+                <td th:text="${article.headline}">Default headline</td>
+                <td th:text="${article.author}">Default author</td>
+                <td th:text="${article.link}">Default link</td>
+                <td th:text="${article.votes}">#votes</td>
+                <td>
+                    <form action="#" th:action="@{'/articles/{id}'(id=${article.id})}" th:method="put" >
+                        <input type="hidden" name="voteUp" value="put" />
+                        <button type="submit" class="btn btn-danger btn-sm pull-right"><span class="glyphicon glyphicon-remove"></span></button>
+                    </form>
+                </td>
+                <td>
+                    <form action="#" th:action="@{'/articles/{id}'(id=${article.id})}" th:method="put" >
+                        <input type="hidden" name="voteDown" value="put" />
+                        <button type="submit" class="btn btn-danger btn-sm pull-right"><span class="glyphicon glyphicon-remove"></span></button>
+                    </form>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
 
 </body>
 </html>
