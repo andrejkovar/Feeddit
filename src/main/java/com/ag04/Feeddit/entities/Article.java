@@ -3,17 +3,19 @@ package com.ag04.Feeddit.entities;
 import javax.persistence.*;
 
 @Entity
+@Table(name = "articles")
 public class Article {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
+    private int id;
 
     @ManyToOne
+    @JoinColumn(name = "user_id")
     private User user;
 
     @Column(name = "votes")
-    private long votes;
+    private int votes;
 
     @Column(name = "headline")
     private String headLine;
@@ -24,6 +26,10 @@ public class Article {
     @Column(name = "link")
     private String link;
 
+    public Article(){
+
+    }
+
     public Article(User user, String headLine, String author, String link) {
         this.user = user;
         this.headLine = headLine;
@@ -31,6 +37,10 @@ public class Article {
         this.link = link;
 
         votes = 0;
+    }
+
+    public int getId(){
+        return id;
     }
 
     public User getUser() {
@@ -41,11 +51,11 @@ public class Article {
         this.user = user;
     }
 
-    public long getVotes() {
+    public int getVotes() {
         return votes;
     }
 
-    public void setVotes(long votes) {
+    public void setVotes(int votes) {
         this.votes = votes;
     }
 

@@ -3,10 +3,9 @@ package com.ag04.Feeddit.entities;
 import com.ag04.Feeddit.services.PasswordCoder;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "users")

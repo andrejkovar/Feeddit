@@ -1,5 +1,6 @@
 package com.ag04.Feeddit.controllers;
 
+import com.ag04.Feeddit.entities.Article;
 import com.ag04.Feeddit.entities.User;
 import com.ag04.Feeddit.services.LoginService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +8,9 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+
+import java.util.List;
+import java.util.Set;
 
 @RestController
 @RequestMapping(value = "/login")
@@ -64,4 +68,10 @@ public class LoginController {
 
         return model;
     }
+
+    @RequestMapping(value = "/articles", method = RequestMethod.GET)
+    public List<Article> getUserArticles(){
+        return loginService.getUserArticles("userOne");
+    }
+
 }
