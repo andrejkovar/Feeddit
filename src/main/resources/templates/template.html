@@ -17,6 +17,13 @@
             font-family: "MV Boli";
         }
 
+        h2.appname {
+            margin: 30px;
+            font-size: 30px;
+            font-family: "MV Boli";
+        }
+
+
         .alert {
             padding: 20px;
             background-color: #666666;
@@ -53,6 +60,7 @@
             background: #444444;
             color: #fff;
         }
+
     </style>
 </head>
 <body>
@@ -60,7 +68,8 @@
     <nav class="navbar navbar-default">
         <div class="container-fluid">
             <div class="navbar-header">
-                <a class="navbar-brand" th:text="'Welcome, '+ ${username} +' !'" th:href="@{|/articles/${username}|}"></a>
+                <!-- <a class="navbar-brand" th:text="'Welcome, '+ ${username} +' !'" th:href="@{|/articles/${username}|}"></a>-->
+                <a class="navbar-brand" th:text="'Welcome, '+ ${username} +' !'">TEst</a>
             </div>
 
             <div class="collapse navbar-collapse">
@@ -74,6 +83,9 @@
             </div>
         </div>
     </nav>
+
+    <h2 class="appname" align="center" th:text="${appname}">App name</h2>
+
     <div class="message container" th:if="${message != null}">
         <div class="col-md-6 col-md-offset-3">
             <div class="alert">

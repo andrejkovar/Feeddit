@@ -3,6 +3,7 @@ package com.ag04.Feeddit.controllers;
 import com.ag04.Feeddit.entities.Article;
 import com.ag04.Feeddit.services.ArticleService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,6 +18,9 @@ import java.util.List;
 @RestController
 @RequestMapping(value = "/articles")
 public class ArticlesController {
+
+    @Value("${spring.application.name}")
+    String appName;
 
     @Autowired
     private ArticleService articleService;
@@ -37,6 +41,7 @@ public class ArticlesController {
             model.addObject("message", request.getParameter("message"));
         }
 
+        model.addObject("appname", appName);
         model.setStatus(HttpStatus.OK);
 
         return model;
@@ -46,6 +51,7 @@ public class ArticlesController {
     public ModelAndView getAddNewArticleForm(HttpServletRequest request){
 
         ModelAndView model = new ModelAndView("new-article");
+        model.addObject("appname", appName);
         model.setStatus(HttpStatus.OK);
 
         return model;
@@ -64,6 +70,7 @@ public class ArticlesController {
 
             model.addObject("message", "All fields are required!");
             model.setViewName("new-article");
+            model.addObject("appname", appName);
 
             return model;
         }
