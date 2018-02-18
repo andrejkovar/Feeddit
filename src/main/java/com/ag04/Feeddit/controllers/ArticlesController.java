@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -27,9 +28,15 @@ public class ArticlesController {
 
         ModelAndView model = new ModelAndView("articles");
         model.addObject("articles", articles);
+
         if (articles.isEmpty()) {
             model.addObject("message", "There are no articles to display");
         }
+
+        if(request.getParameter("message") != null){
+            model.addObject("message", request.getParameter("message"));
+        }
+
         model.setStatus(HttpStatus.OK);
 
         return model;
@@ -45,7 +52,7 @@ public class ArticlesController {
     }
 
     @RequestMapping(value = "/new", method = RequestMethod.POST)
-    public ModelAndView addNewArticleForm(HttpServletRequest request){
+    public ModelAndView addNewArticleForm(HttpServletRequest request, RedirectAttributes redirectAttribute){
 
         ModelAndView model = new ModelAndView();
 
@@ -64,6 +71,7 @@ public class ArticlesController {
         articleService.addNewArticle(request.getParameter("username"), headline, author, link);
 
         model.setViewName("redirect:/articles");
+        model.addObject("message", "New article '" + headline + "' is added");
         model.setStatus(HttpStatus.CREATED);
 
         return model;

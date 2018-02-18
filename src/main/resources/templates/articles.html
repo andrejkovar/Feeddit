@@ -6,14 +6,26 @@
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"/>
 
+    <style>
+        .panel-default > .panel-heading{
+            background: #444444;
+            color: #fff;
+        }
+        div.table {
+            width: 50%;
+            margin: auto;
+        }
+
+    </style>
+
 </head>
 <body>
 
 <div th:replace="template :: header"></div>
 
-<div class="container">
+<div class="table">
     <div class="panel panel-default">
-        <div class="panel-heading panel-heading-custom">
+        <div class="panel-heading panel-heading">
             <h3 class="panel-title pull-left">
                 Articles
             </h3>
@@ -30,19 +42,17 @@
         <table class="table">
 
             <colgroup>
-                <col span="1" style="width: 20%;"/>
-                <col span="1" style="width: 20%;"/>
-                <col span="1" style="width: 20%;"/>
-                <col span="1" style="width: 20%;"/>
-                <col span="1" style="width: 10%;"/>
-                <col span="1" style="width: 10%;"/>
+                <col span="1" style="width: 30%;"/>
+                <col span="1" style="width: 30%;"/>
+                <col span="1" style="width: 30%;"/>
+                <col span="1" style="width: 5%;"/>
+                <col span="1" style="width: 5%;"/>
             </colgroup>
 
             <thead>
             <tr>
                 <th>Headline</th>
                 <th>Author</th>
-                <th>link</th>
                 <th>Votes</th>
                 <th></th>
                 <th></th>
@@ -51,22 +61,29 @@
 
             <tbody>
             <tr th:each="article : ${articles}">
-                <td th:text="${article.headline}">Default headline</td>
+                <td><a th:href="${article.link}"><label th:text="${article.headline}">Default</label> </a></td>
                 <td th:text="${article.author}">Default author</td>
-                <td><a th:href="${article.link}"><label th:text="${article.link}"></label> </a></td>
                 <td th:text="${article.votes}">#votes</td>
                 <td>
-                    <form action="#" th:action="@{'/articles/{id}'(id=${article.id})}" th:method="put" >
-                        <input type="hidden" name="voteUp" value="put" />
-                        <button type="submit" class="btn btn-danger btn-sm pull-right"><span class="glyphicon glyphicon-remove"></span></button>
+                    <button type="submit" class="btn btn-success btn-sm pull-right"><span class="glyphicon glyphicon-thumbs-up"></span></button>
+                </td>
+                <td>
+                    <button class="btn btn-danger btn-sm pull-right"><span class="glyphicon glyphicon-thumbs-down"></span></button>
+                </td>
+                <!--
+                <td>
+                    <form th:method="post" >
+                        <input type="hidden" name="voteUp" value="" />
+                        <button type="submit" class="btn btn-success btn-sm pull-right"><span class="glyphicon glyphicon-thumbs-up"></span></button>
                     </form>
                 </td>
                 <td>
-                    <form action="#" th:action="@{'/articles/{id}'(id=${article.id})}" th:method="put" >
-                        <input type="hidden" name="voteDown" value="put" />
-                        <button type="submit" class="btn btn-danger btn-sm pull-right"><span class="glyphicon glyphicon-remove"></span></button>
+                    <form th:method="post" >
+                        <input type="hidden" name="voteDown" value="" />
+                        <button class="btn btn-danger btn-sm pull-right"><span class="glyphicon glyphicon-thumbs-down"></span></button>
                     </form>
                 </td>
+                -->
             </tr>
             </tbody>
         </table>
