@@ -27,7 +27,9 @@ public class ArticlesController {
 
         ModelAndView model = new ModelAndView("articles");
         model.addObject("articles", articles);
-        model.addObject("message", "Hy :D");
+        if (articles.isEmpty()) {
+            model.addObject("message", "There are no articles to display");
+        }
         model.setStatus(HttpStatus.OK);
 
         return model;
@@ -58,6 +60,8 @@ public class ArticlesController {
 
             return model;
         }
+
+        articleService.addNewArticle(request.getParameter("username"), headline, author, link);
 
         model.setViewName("redirect:/articles");
         model.setStatus(HttpStatus.CREATED);
