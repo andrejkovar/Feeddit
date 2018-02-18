@@ -6,74 +6,10 @@
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"/>
 
-    <style>
-        .alert {
-            padding: 20px;
-            background-color: #666666;
-            color: white;
-            margin-bottom: 15px;
-        }
-
-        .closebtn {
-            margin-left: 15px;
-            color: white;
-            font-weight: bold;
-            float: right;
-            font-size: 22px;
-            line-height: 20px;
-            cursor: pointer;
-            transition: 0.3s;
-        }
-
-        .closebtn:hover {
-            color: black;
-        }
-
-        .panel-default > .panel-heading-custom {
-            background: #444444;
-            color: #fff;
-        }
-        .logoutbtn {
-            background-color: #444444;
-            border: none;
-            color: white;
-            padding: 15px 32px;
-            text-align: center;
-            text-decoration: none;
-            display: inline-block;
-            font-size: 16px;
-        }
-    </style>
-
 </head>
 <body>
 
-<nav class="navbar navbar-default">
-    <div class="container-fluid">
-        <div class="navbar-header">
-
-            <a class="navbar-brand" th:text="'Welcome, '+ ${username} +' !'" th:href="@{|/articles/${username}|}"></a>
-        </div>
-
-        <div class="collapse navbar-collapse">
-            <ul class="nav navbar-nav navbar-right">
-                    <form action="/logout" method="post">
-                        <input type="hidden" name="username" th:value="${username}" />
-                        <input type="hidden" name="token" th:value="${token}" />
-                        <button class="logoutbtn" name="Logout" type="submit">Logout</button>
-                    </form>
-            </ul>
-        </div>
-    </div>
-</nav>
-<div class="message container" th:if="${message != null}">
-    <div class="col-md-6 col-md-offset-3">
-        <div class="alert">
-            <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
-            <span th:text="${message}">Area for messages, INFO/WARN/ERROR</span>
-        </div>
-    </div>
-</div>
+<div th:replace="template :: header"></div>
 
 <div class="container">
     <div class="panel panel-default">
