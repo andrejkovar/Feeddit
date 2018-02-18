@@ -10,7 +10,7 @@
         /* The alert message box */
         .alert {
             padding: 20px;
-            background-color: #666666; /* Red */
+            background-color: #666666;
             color: white;
             margin-bottom: 15px;
         }
@@ -31,6 +31,10 @@
         .closebtn:hover {
             color: black;
         }
+
+        .panel-default > .panel-heading-custom {
+            background: #444444;
+            color: #fff; }
     </style>
 
 </head>
@@ -45,12 +49,16 @@
 
         <div class="collapse navbar-collapse">
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="" class="btn btn-danger btn-sm pull-right" style="color:white"><span class="glyphicon glyphicon-log-out" style="color:white"></span> Logout</a></li>
+                <form action="/logout" method="post">
+                    <input type="hidden" name="username" th:value="${username}" />
+                    <input type="hidden" name="token" th:value="${token}" />
+                    <button name="Logout" type="submit">Logout</button>
+                </form>
             </ul>
         </div>
     </div>
 </nav>
-<div class="message container">
+<div class="message container" th:if="${message != null}">
     <div class="col-md-6 col-md-offset-3">
         <div class="alert">
             <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
@@ -60,8 +68,8 @@
 </div>
 
 <div class="container">
-    <div class="panel panel-primary">
-        <div class="panel-heading">
+    <div class="panel panel-default">
+        <div class="panel-heading panel-heading-custom">
             <h3 class="panel-title pull-left">
                 Articles
             </h3>
@@ -96,7 +104,7 @@
             <tr th:each="article : ${articles}">
                 <td th:text="${article.headline}">Default headline</td>
                 <td th:text="${article.author}">Default author</td>
-                <td th:text="${article.link}">Default link</td>
+                <td><a th:href="${article.link}"><label th:text="${article.link}"></label> </a></td>
                 <td th:text="${article.votes}">#votes</td>
                 <td>
                     <form action="#" th:action="@{'/articles/{id}'(id=${article.id})}" th:method="put" >

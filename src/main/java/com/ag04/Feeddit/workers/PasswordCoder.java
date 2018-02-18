@@ -1,4 +1,4 @@
-package com.ag04.Feeddit.services;
+package com.ag04.Feeddit.workers;
 
 import java.util.Base64;
 

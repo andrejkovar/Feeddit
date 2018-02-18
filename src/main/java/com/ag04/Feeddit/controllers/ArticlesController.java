@@ -28,6 +28,7 @@ public class ArticlesController {
         model.addObject("articles", articles);
         model.addObject("username", username);
         model.addObject("token", token);
+        model.addObject("message", "Hy :D");
         model.setStatus(HttpStatus.OK);
 
         return model;
