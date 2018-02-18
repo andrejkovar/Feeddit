@@ -18,7 +18,12 @@
                 Articles
             </h3>
 
-            <a href="/articles/new" class="btn btn-success btn-sm pull-right"><span class="glyphicon glyphicon-plus"></span> Add new article</a>
+            <form action="/articles/new" method="get">
+                <input type="hidden" name="username" th:value="${username}" />
+                <input type="hidden" name="token" th:value="${token}" />
+                <button class="pull-right btn btn-success" type="submit">Add new article</button>
+            </form>
+
             <div class="clearfix"></div>
         </div>
 

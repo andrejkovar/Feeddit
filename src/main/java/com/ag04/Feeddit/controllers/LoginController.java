@@ -3,7 +3,6 @@ package com.ag04.Feeddit.controllers;
 import com.ag04.Feeddit.entities.LoggedUser;
 import com.ag04.Feeddit.services.LoggedUsersService;
 import com.ag04.Feeddit.services.LoginService;
-import com.ag04.Feeddit.workers.TokenGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
@@ -28,6 +27,7 @@ public class LoginController {
 
         ModelAndView model = new ModelAndView("login");
         model.addObject("message", "Enter your username and password");
+        model.addObject("appname", appName);
         model.setStatus(HttpStatus.OK);
 
         return model;

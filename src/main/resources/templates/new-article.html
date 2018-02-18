@@ -1,10 +1,78 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org/" xmlns:class="http://www.w3.org/1999/xhtml">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <meta charset="UTF-8" />
+    <title>New article</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"/>
+
+    <style>
+        .form-group{
+            overflow: hidden;
+            margin: 10px 0;
+        }
+
+        input{
+            text-align: center;
+        }
+
+        label{
+            text-align: right;
+        }
+
+    </style>
 </head>
 <body>
 
+<div th:replace="template :: header"></div>
+
+<h1 class="formname" align="center">Add new article</h1>
+
+<div class="container">
+    <div class="col-md-6 col-md-offset-3">
+        <form class:="form-horizontal" method="post">
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Vote #:</label>
+                <div class="col-sm-10">
+                    <input class="form-control"  disabled="disabled" th:value="0"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">By user:</label>
+                <div class="col-sm-10">
+                    <input type="text" name="username" class="form-control" disabled="disabled" th:value="${username}" placeholder="user"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Headline:</label>
+                <div class="col-sm-10">
+                    <input type="text" name="headline" class="form-control" placeholder="Headline"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Link:</label>
+                <div class="col-sm-10">
+                    <input type="text" name="link" class="form-control" placeholder="Link"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Author:</label>
+                <div class="col-sm-10">
+                    <input type="text" name="author" class="form-control" placeholder="Author"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                    <button type="submit" name="submit" class="btn btn-success btn-block">Publish</button>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                    <button type="submit" name="submit" class="btn btn-danger btn-block">Cancel</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
 </body>
 </html>

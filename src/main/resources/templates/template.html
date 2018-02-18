@@ -5,6 +5,18 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"/>
 
     <style>
+        h1.appname {
+            margin: 50px;
+            font-size: 100px;
+            font-family: "MV Boli";
+        }
+
+        h1.formname {
+            margin: 50px;
+            font-size: 50px;
+            font-family: "MV Boli";
+        }
+
         .alert {
             padding: 20px;
             background-color: #666666;
@@ -27,12 +39,7 @@
             color: black;
         }
 
-        .panel-default > .panel-heading-custom {
-            background: #444444;
-            color: #fff;
-        }
         .logoutbtn {
-            background-color: #444444;
             border: none;
             color: white;
             padding: 15px 32px;
@@ -41,6 +48,11 @@
             display: inline-block;
             font-size: 16px;
         }
+
+        .panel-default > .panel-heading{
+            background: #444444;
+            color: #fff;
+        }
     </style>
 </head>
 <body>
@@ -48,7 +60,6 @@
     <nav class="navbar navbar-default">
         <div class="container-fluid">
             <div class="navbar-header">
-
                 <a class="navbar-brand" th:text="'Welcome, '+ ${username} +' !'" th:href="@{|/articles/${username}|}"></a>
             </div>
 
@@ -57,7 +68,7 @@
                     <form action="/logout" method="post">
                         <input type="hidden" name="username" th:value="${username}" />
                         <input type="hidden" name="token" th:value="${token}" />
-                        <button class="logoutbtn" name="Logout" type="submit">Logout</button>
+                        <button class="logoutbtn btn btn-danger" name="Logout" type="submit">Logout</button>
                     </form>
                 </ul>
             </div>
