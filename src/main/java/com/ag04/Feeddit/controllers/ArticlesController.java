@@ -6,9 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpRequest;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -18,9 +16,6 @@ import java.util.List;
 @RestController
 @RequestMapping(value = "/articles")
 public class ArticlesController {
-
-    @Value("${spring.application.name}")
-    String appName;
 
     @Autowired
     private ArticleService articleService;
@@ -37,11 +32,6 @@ public class ArticlesController {
             model.addObject("message", "There are no articles to display");
         }
 
-        if(request.getParameter("message") != null){
-            model.addObject("message", request.getParameter("message"));
-        }
-
-        model.addObject("appname", appName);
         model.setStatus(HttpStatus.OK);
 
         return model;
@@ -51,7 +41,6 @@ public class ArticlesController {
     public ModelAndView getAddNewArticleForm(HttpServletRequest request){
 
         ModelAndView model = new ModelAndView("new-article");
-        model.addObject("appname", appName);
         model.setStatus(HttpStatus.OK);
 
         return model;
@@ -70,7 +59,6 @@ public class ArticlesController {
 
             model.addObject("message", "All fields are required!");
             model.setViewName("new-article");
-            model.addObject("appname", appName);
 
             return model;
         }
@@ -80,6 +68,56 @@ public class ArticlesController {
         model.setViewName("redirect:/articles");
         model.addObject("message", "New article '" + headline + "' is added");
         model.setStatus(HttpStatus.CREATED);
+
+        return model;
+    }
+
+    @RequestMapping(value = "/{username}", method = RequestMethod.GET)
+    public ModelAndView getArticlesByUser(HttpServletRequest request, @PathVariable String username){
+
+        List<Article> articles = articleService.getArticlesByUsername(username);
+
+        ModelAndView model = new ModelAndView("user-articles");
+        model.addObject("articles", articles);
+
+        if (articles.isEmpty()) {
+            model.addObject("message", "You didn't add any article yet");
+        }
+
+        model.setStatus(HttpStatus.OK);
+
+        return model;
+    }
+
+    @RequestMapping(value = "/{username}/{id}", method = RequestMethod.POST)
+    public ModelAndView deleteArticlesByUser(HttpServletRequest request, @PathVariable String username, @PathVariable String id, @RequestParam String method){
+
+        ModelAndView model = new ModelAndView();
+
+        if (!method.equals("DELETE")){
+            model.addObject("message", "Invalid request method");
+            model.setStatus(HttpStatus.METHOD_NOT_ALLOWED);
+
+            return model;
+        }
+
+        int articleId = Integer.parseInt(id);
+        if (!articleService.isArticleExists(articleId)) {
+
+            model.addObject("message", "Article does not exist!");
+            model.setStatus(HttpStatus.NOT_FOUND);
+            model.setViewName("redirect:/articles/" + username);
+
+            return model;
+        }
+
+        String headline = articleService.getArticleById(articleId).getHeadline();
+
+        articleService.deleteArticleById(articleId);
+
+        model.addObject("message", "Article (" + headline +") is deleted");
+        model.setStatus(HttpStatus.OK);
+        model.setViewName("redirect:/articles/" + username);
 
         return model;
     }

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8" />
+    <title>My articles</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"/>
+
+    <style>
+        .panel-default > .panel-heading{
+            background: #444444;
+            color: #fff;
+        }
+        div.table {
+            width: 50%;
+            margin: auto;
+        }
+
+    </style>
+
+</head>
+<body>
+
+<div th:replace="template :: header"></div>
+
+<div class="table">
+    <div class="panel panel-default">
+        <div class="panel-heading panel-heading">
+            <h3 class="panel-title pull-left">
+                My articles
+            </h3>
+
+            <div class="clearfix"></div>
+        </div>
+
+        <table class="table">
+
+            <colgroup>
+                <col span="1" style="width: 40%;"/>
+                <col span="1" style="width: 35%;"/>
+                <col span="1" style="width: 20%;"/>
+                <col span="1" style="width: 5%;"/>
+            </colgroup>
+
+            <thead>
+            <tr>
+                <th>Headline</th>
+                <th>Author</th>
+                <th>Votes</th>
+                <th></th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <tr th:each="article : ${articles}">
+                <td><a th:href="${article.link}"><label th:text="${article.headline}">Default</label> </a></td>
+                <td th:text="${article.author}">Default author</td>
+                <td th:text="${article.votes}">#votes</td>
+                <td>
+                    <form th:action="@{/articles/{username}/{id} (username = ${username}, id = ${article.id})}" th:method="post">
+                        <input type="hidden" name="method" value="DELETE"/>
+                        <input type="hidden" name="username" th:value="${username}" />
+                        <input type="hidden" name="token" th:value="${token}" />
+                        <button type="submit" class="btn btn-danger btn-sm pull-right"><span class="glyphicon glyphicon-trash"></span></button>
+                    </form>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <form action="/articles" method="get">
+        <div class="btnback">
+            <input type="hidden" name="username" th:value="${username}" />
+            <input type="hidden" name="token" th:value="${token}" />
+            <button type="submit" class="btn btn-success btn-block">Back to all articles</button>
+        </div>
+    </form>
+</div>
+
+</body>
+</html>

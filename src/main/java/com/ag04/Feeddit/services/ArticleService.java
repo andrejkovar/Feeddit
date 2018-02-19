@@ -21,7 +21,15 @@ public class ArticleService {
     public List<Article> getAllArticles(){
 
         List<Article> articles = new ArrayList<>();
-        articleRepository.findAll().forEach(articles::add);
+        articleRepository.findAll().forEach(articles :: add);
+
+        return articles;
+    }
+
+    public List<Article> getArticlesByUsername(String username){
+
+        List<Article> articles = new ArrayList<>();
+        articles.addAll(articleRepository.findByUserUsername(username));
 
         return articles;
     }
@@ -33,5 +41,17 @@ public class ArticleService {
         System.out.println(userRepository.findOne(username));
 
         articleRepository.save(article);
+    }
+
+    public void deleteArticleById(int id) {
+        articleRepository.delete(id);
+    }
+
+    public boolean isArticleExists(int id) {
+        return articleRepository.exists(id);
+    }
+
+    public Article getArticleById(int id) {
+        return articleRepository.findOne(id);
     }
 }

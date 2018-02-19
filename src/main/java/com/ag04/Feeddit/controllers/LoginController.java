@@ -13,9 +13,6 @@ import org.springframework.web.servlet.ModelAndView;
 @RequestMapping(value = "/login")
 public class LoginController {
 
-    @Value("${spring.application.name}")
-    String appName;
-
     @Autowired
     private LoginService loginService;
 
@@ -27,7 +24,6 @@ public class LoginController {
 
         ModelAndView model = new ModelAndView("login");
         model.addObject("message", "Enter your username and password");
-        model.addObject("appname", appName);
         model.setStatus(HttpStatus.OK);
 
         return model;

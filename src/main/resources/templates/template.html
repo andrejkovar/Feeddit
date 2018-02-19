@@ -23,7 +23,6 @@
             font-family: "MV Boli", "Comic Sans MS", "Arial";
         }
 
-
         .alert {
             padding: 20px;
             background-color: #666666;
@@ -68,8 +67,9 @@
     <nav class="navbar navbar-default">
         <div class="container-fluid">
             <div class="navbar-header">
-                <!-- <a class="navbar-brand" th:text="'Welcome, '+ ${username} +' !'" th:href="@{|/articles/${username}|}"></a>-->
-                <a class="navbar-brand" th:text="'Welcome, '+ ${username} +' !'">TEst</a>
+                <a class="navbar-brand" th:text="'Welcome, '+ ${username} +' !'" th:href="@{'/articles/' + ${username} (username = ${username}, token = ${token})}">
+                    Welcome, username !
+                </a>
             </div>
 
             <div class="collapse navbar-collapse">

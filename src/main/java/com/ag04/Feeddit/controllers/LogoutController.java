@@ -18,6 +18,7 @@ public class LogoutController {
         loggedUsersService.logoutUser(username, token);
 
         ModelAndView model = new ModelAndView("redirect:/login");
+        model.addObject("message", "You have successfully logged out");
         return model;
     }
 }

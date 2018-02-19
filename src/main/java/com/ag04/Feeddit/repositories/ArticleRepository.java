@@ -7,5 +7,5 @@ import java.util.List;
 
 public interface ArticleRepository extends CrudRepository<Article, Integer> {
 
-    public List<Article> findByUserUsername(String username);
+    List<Article> findByUserUsername(String username);
 }
