@@ -3,6 +3,7 @@ package com.ag04.Feeddit.controllers;
 import com.ag04.Feeddit.entities.Article;
 import com.ag04.Feeddit.entities.VotedArticle;
 import com.ag04.Feeddit.services.ArticleService;
+import com.ag04.Feeddit.workers.LinkValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpRequest;
@@ -59,6 +60,14 @@ public class ArticlesController {
         if (headline == null || headline.isEmpty() || link == null || link.isEmpty() || author == null || author.isEmpty()){
 
             model.addObject("message", "All fields are required!");
+            model.setViewName("new-article");
+
+            return model;
+        }
+
+        if(!LinkValidator.isValid(link)){
+
+            model.addObject("message", "Link is invalid!");
             model.setViewName("new-article");
 
             return model;
