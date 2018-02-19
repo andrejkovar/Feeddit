@@ -65,25 +65,23 @@
                 <td th:text="${article.author}">Default author</td>
                 <td th:text="${article.votes}">#votes</td>
                 <td>
-                    <button type="submit" class="btn btn-success btn-sm pull-right"><span class="glyphicon glyphicon-thumbs-up"></span></button>
-                </td>
-                <td>
-                    <button class="btn btn-danger btn-sm pull-right"><span class="glyphicon glyphicon-thumbs-down"></span></button>
-                </td>
-                <!--
-                <td>
-                    <form th:method="post" >
-                        <input type="hidden" name="voteUp" value="" />
+                    <form action="/votes" th:method="post" >
+                        <input type="hidden" name="username" th:value="${username}" />
+                        <input type="hidden" name="token" th:value="${token}" />
+                        <input type="hidden" name="articleId" th:value="${article.id}" />
+                        <input type="hidden" name="vote" value="true" />
                         <button type="submit" class="btn btn-success btn-sm pull-right"><span class="glyphicon glyphicon-thumbs-up"></span></button>
                     </form>
                 </td>
                 <td>
-                    <form th:method="post" >
-                        <input type="hidden" name="voteDown" value="" />
-                        <button class="btn btn-danger btn-sm pull-right"><span class="glyphicon glyphicon-thumbs-down"></span></button>
+                    <form action="/votes" th:method="post" >
+                        <input type="hidden" name="username" th:value="${username}" />
+                        <input type="hidden" name="token" th:value="${token}" />
+                        <input type="hidden" name="articleId" th:value="${article.id}" />
+                        <input type="hidden" name="vote" value="false" />
+                        <button type="submit" class="btn btn-danger btn-sm pull-right"><span class="glyphicon glyphicon-thumbs-down"></span></button>
                     </form>
                 </td>
-                -->
             </tr>
             </tbody>
         </table>

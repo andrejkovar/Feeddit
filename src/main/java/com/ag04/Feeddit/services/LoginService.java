@@ -1,8 +1,4 @@
 package com.ag04.Feeddit.services;
-
-import com.ag04.Feeddit.entities.LoggedUser;
-import com.ag04.Feeddit.repositories.LoggedUserRepository;
-import com.ag04.Feeddit.repositories.UserRepository;
 import com.ag04.Feeddit.workers.PasswordCoder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,17 +7,17 @@ import org.springframework.stereotype.Service;
 public class LoginService {
 
     @Autowired
-    private UserRepository userRepository;
+    private UserService userService;
 
     public boolean isUserExists(String username){
-        return userRepository.exists(username);
+        return userService.exists(username);
     }
 
     public boolean isUserPasswordCorrect(String username, String password) {
 
         if(!isUserExists(username)) return false;
 
-        String decryptedPassword = PasswordCoder.decode(userRepository.findOne(username).getPassword().replace(" ", ""));
+        String decryptedPassword = PasswordCoder.decode(userService.getUser(username).getPassword());
         return decryptedPassword.equals(password);
     }
 }

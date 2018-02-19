@@ -21,7 +21,7 @@ public class ArticlesController {
     private ArticleService articleService;
 
     @RequestMapping(value = "", method = RequestMethod.GET)
-    public ModelAndView getArticles(HttpServletRequest request){
+    public ModelAndView getArticles(){
 
         List<Article> articles = articleService.getAllArticles();
 
@@ -38,7 +38,7 @@ public class ArticlesController {
     }
 
     @RequestMapping(value = "/new", method = RequestMethod.GET)
-    public ModelAndView getAddNewArticleForm(HttpServletRequest request){
+    public ModelAndView getAddNewArticleForm(){
 
         ModelAndView model = new ModelAndView("new-article");
         model.setStatus(HttpStatus.OK);
@@ -47,7 +47,7 @@ public class ArticlesController {
     }
 
     @RequestMapping(value = "/new", method = RequestMethod.POST)
-    public ModelAndView addNewArticleForm(HttpServletRequest request, RedirectAttributes redirectAttribute){
+    public ModelAndView addNewArticleForm(HttpServletRequest request){
 
         ModelAndView model = new ModelAndView();
 
@@ -73,7 +73,7 @@ public class ArticlesController {
     }
 
     @RequestMapping(value = "/{username}", method = RequestMethod.GET)
-    public ModelAndView getArticlesByUser(HttpServletRequest request, @PathVariable String username){
+    public ModelAndView getArticlesByUser(@PathVariable String username){
 
         List<Article> articles = articleService.getArticlesByUsername(username);
 
@@ -90,7 +90,7 @@ public class ArticlesController {
     }
 
     @RequestMapping(value = "/{username}/{id}", method = RequestMethod.POST)
-    public ModelAndView deleteArticlesByUser(HttpServletRequest request, @PathVariable String username, @PathVariable String id, @RequestParam String method){
+    public ModelAndView deleteArticlesByUser(@PathVariable String username, @PathVariable String id, @RequestParam String method){
 
         ModelAndView model = new ModelAndView();
 
@@ -115,7 +115,7 @@ public class ArticlesController {
 
         articleService.deleteArticleById(articleId);
 
-        model.addObject("message", "Article (" + headline +") is deleted");
+        model.addObject("message", "Article '" + headline +"' is deleted");
         model.setStatus(HttpStatus.OK);
         model.setViewName("redirect:/articles/" + username);
 
