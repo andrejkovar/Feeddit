@@ -1,6 +1,7 @@
 package com.ag04.Feeddit.controllers;
 
 import com.ag04.Feeddit.entities.Article;
+import com.ag04.Feeddit.entities.VotedArticle;
 import com.ag04.Feeddit.services.ArticleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -21,14 +22,14 @@ public class ArticlesController {
     private ArticleService articleService;
 
     @RequestMapping(value = "", method = RequestMethod.GET)
-    public ModelAndView getArticles(){
+    public ModelAndView getArticles(@RequestParam String username){
 
-        List<Article> articles = articleService.getAllArticles();
+        List<VotedArticle> votedArticles = articleService.getAllVotedArticles(username);
 
         ModelAndView model = new ModelAndView("articles");
-        model.addObject("articles", articles);
+        model.addObject("votedArticles", votedArticles);
 
-        if (articles.isEmpty()) {
+        if (votedArticles.isEmpty()) {
             model.addObject("message", "There are no articles to display");
         }
 
